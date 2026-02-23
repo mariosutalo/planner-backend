@@ -4,13 +4,14 @@ services:
     container_name: postgres-postgis
     restart: unless-stopped
     environment:
-      POSTGRES_DB: planner
+      POSTGRES_DB: local_eats
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.5
