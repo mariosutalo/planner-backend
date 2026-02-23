@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: postgres-postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: planner
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.5
+    command: start-dev
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://116.203.33.67:5432/local_eats_keycloak_dev
+      KC_DB_USERNAME: mario
+      KC_DB_PASSWORD: umorime
+      KC_HOSTNAME_STRICT: 'false'
+      KC_HEALTH_ENABLED: 'true'
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: umorime
+    restart: unless-stopped
+    ports:
+      - "9090:8080"
+
+volumes:
+  pg_data:
+
+
