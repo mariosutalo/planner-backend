@@ -16,7 +16,7 @@ public class ServiceController {
 
     @GetMapping()
     public String getFeaturedServices() {
-        return service.testCall();
+        return service.testCall().concat("d");
     }
 
 }
