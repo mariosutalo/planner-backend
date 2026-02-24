@@ -1,13 +1,12 @@
 package app.planner.endpoint.service;
 
-import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
-@NullMarked
 @Service
 public class ServiceService {
 
-    public String testCall() {
+    public @Nullable String testCall() {
         return null;
 
     }
