@@ -3,7 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '4.0.3'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'net.ltgt.errorprone' version '5.0.0'
-    id 'net.ltgt.nullaway' version '3.0.0'
+    //id 'net.ltgt.nullaway' version '3.0.0'
 }
 
 group = 'app.planner'
@@ -43,15 +43,27 @@ dependencies {
 	testImplementation 'org.testcontainers:testcontainers-postgresql'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    errorprone "com.google.errorprone:error_prone_core:2.36.0"
-    errorprone "com.uber.nullaway:nullaway:0.13.1"
+    implementation 'org.jspecify:jspecify:1.0.0' // https://jspecify.dev/
+	errorprone 'com.google.errorprone:error_prone_core:2.42.0' // https://github.com/google/error-prone
+	errorprone 'com.uber.nullaway:nullaway:0.12.12' // https://github.com/uber/NullAway
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
-nullaway {
+tasks.withType(JavaCompile).configureEach {
+	options.errorprone {
+		disableAllChecks = true // Other error prone checks are disabled
+		option("NullAway:OnlyNullMarked", "true") // Enable nullness checks only in null-marked code
+		error("NullAway") // bump checks from warnings (default) to errors
+		option("NullAway:JSpecifyMode", "true") // https://github.com/uber/NullAway/wiki/JSpecify-Support
+	}
+	// Keep a JDK 17 baseline
+	options.release = 17
+}
+
+/* nullaway {
 	jspecifyMode = true
     onlyNullMarked = true // Dodaj ovu liniju, a makni annotatedPackages ako postoji
-}
+} */
