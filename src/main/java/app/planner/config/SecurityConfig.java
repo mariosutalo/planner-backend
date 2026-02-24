@@ -27,12 +27,7 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests((authorize) -> authorize
         .requestMatchers("/error").permitAll()
-        .requestMatchers("/api/spots/**").permitAll()
-        .requestMatchers("/api/menu-items/**").permitAll()
-        .requestMatchers("/api/daily-menus/**").permitAll()
-        .requestMatchers("/api/menu-item-categories/**").permitAll()
-        .requestMatchers("/api/favorite-spots/**").permitAll()
-        .requestMatchers("/api/features/**").permitAll()
+        .requestMatchers("/api/services/**").permitAll()
         .requestMatchers("/actuator/**").permitAll()
         .anyRequest().authenticated())
         //.anyRequest().permitAll())
