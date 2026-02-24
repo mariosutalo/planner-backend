@@ -53,7 +53,7 @@ CREATE TABLE service_image_variant (
     url VARCHAR(2083) NOT NULL UNIQUE,
     width INT,
     height INT,
-    FOREIGN KEY (service_image_id) REFERENCES service_image (id) ON DELETE CASCADE,
+    FOREIGN KEY (service_image_id) REFERENCES service_image (id) ON DELETE CASCADE
 );
 
 CREATE TABLE favorite_service (
@@ -62,6 +62,6 @@ CREATE TABLE favorite_service (
     user_id UUID NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
-    FOREIGN KEY (service_id) REFERENCES service (id) ON DELETE CASCADE
+    FOREIGN KEY (service_id) REFERENCES service (id) ON DELETE CASCADE,
     CONSTRAINT unique_user_service UNIQUE (service_id, user_id)
 );
