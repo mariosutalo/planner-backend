@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CurrentUser {
 
-    public @Nullable String getUser() {
+    public @Nullable String getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !(authentication.getPrincipal() instanceof Jwt jwt)) {
