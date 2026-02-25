@@ -7,7 +7,7 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration(proxyBeanMethods = false)
-class TestcontainersConfiguration {
+public class TestcontainersConfiguration {
 
 	static DockerImageName imageName = DockerImageName.parse("postgis/postgis:16-3.4")
 			.asCompatibleSubstituteFor("postgres");
