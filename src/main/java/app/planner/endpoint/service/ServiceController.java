@@ -2,10 +2,7 @@ package app.planner.endpoint.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import app.planner.config.CurrentUser;
@@ -40,15 +37,13 @@ public class ServiceController {
                 .body(serviceResponse);
     }
 
-    /*
-     * @GetMapping()
-     * public ResponseEntity<String> getFeaturedServices() {
-     * var result = service.testCall();
-     * if (result != null) {
-     * return ResponseEntity.ok(result.concat("d"));
-     * }
-     * return ResponseEntity.notFound().build();
-     * }
-     */
+    @GetMapping()
+    public ResponseEntity<String> getFeaturedServices() {
+        var result = service.testCall();
+        if (result != null) {
+            return ResponseEntity.ok(result.concat("d"));
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }
