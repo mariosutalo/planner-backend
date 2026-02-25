@@ -1,6 +1,7 @@
 package app.planner.endpoint.service;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class ServiceController {
         this.currentUser = user;
     }
 
+    @PreAuthorize("hasRole('role_user')")
     @PostMapping()
     public ResponseEntity<ServiceCreatedResponse> addNewService(@Valid @RequestBody CreateServiceRequest request) {
         var userUUID = currentUser.getUserId();

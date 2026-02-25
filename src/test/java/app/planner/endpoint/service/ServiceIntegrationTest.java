@@ -24,18 +24,18 @@ public class ServiceIntegrationTest extends BaseIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @Test
-        void shouldReturn500OnInvalidImageEnumType() {
+        void shouldReturnBadRequestForInvalidData() {
                 var invalidData = ServiceTestData.invalidNewServiceData;
                 var headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
 
                 ResponseEntity<Void> createResponse = restTemplate.exchange(
-                                "/api/spots",
+                                "/api/services",
                                 HttpMethod.POST,
                                 new HttpEntity<>(invalidData, headers),
                                 Void.class);
 
-                assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+                assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         }
 
         @Test
@@ -45,7 +45,7 @@ public class ServiceIntegrationTest extends BaseIntegrationTest {
                 headers.setContentType(MediaType.APPLICATION_JSON);
 
                 ResponseEntity<Void> createResponse = restTemplate.exchange(
-                                "/api/spots",
+                                "/api/services",
                                 HttpMethod.POST,
                                 new HttpEntity<>(validData, headers),
                                 Void.class);
