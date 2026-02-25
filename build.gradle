@@ -62,8 +62,3 @@ tasks.withType(JavaCompile).configureEach {
 	// Keep a JDK 17 baseline
 	options.release = 17
 }
-
-/* nullaway {
-	jspecifyMode = true
-    onlyNullMarked = true // Dodaj ovu liniju, a makni annotatedPackages ako postoji
-} */

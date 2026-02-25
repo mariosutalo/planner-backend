@@ -4,6 +4,8 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 public record CreateServiceRequest(
 
     @NotNull
@@ -25,7 +27,7 @@ public record CreateServiceRequest(
     BigDecimal endPrice,
 
     @NotNull
-    String properties, // or Map<String, Object> if deserializing JSONB
+    ObjectNode properties, // or Map<String, Object> if deserializing JSONB
 
     @DecimalMin(value = "-90.0") @DecimalMax(value = "90.0")
     Double latitude,
