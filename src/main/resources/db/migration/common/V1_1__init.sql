@@ -1,4 +1,4 @@
-CREATE TYPE data_type AS ENUM ('int', 'text', 'boolean');
+CREATE TYPE data_type AS ENUM ('int', 'text', 'boolean', 'decimal', 'single', 'multiple');
 CREATE TYPE image_type_enum AS ENUM ('cover', 'gallery');
 
 CREATE EXTENSION IF NOT EXISTS postgis;

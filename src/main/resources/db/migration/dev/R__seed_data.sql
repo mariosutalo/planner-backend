@@ -1,174 +1,153 @@
+DELETE FROM service;
+DELETE FROM service_property_definition;
+DELETE FROM service_type;
+
+ALTER SEQUENCE service_id_seq RESTART WITH 1;
+ALTER SEQUENCE service_property_definition_id_seq RESTART WITH 1;
+ALTER SEQUENCE service_type_id_seq RESTART WITH 1;
+
+
 INSERT INTO service_type (name) VALUES
-('Photo Booth'),
-('Photographer'),
-('Car Rental');
+('photo_booth_s'),
+('photographer_s'),
+('car_rental_s');
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'duration_hours', 'int', true, NULL
-FROM service_type WHERE name = 'Photo Booth';
+SELECT id, 'duration_hours_p', 'int', true, '{"min": 4, "max": 10}'
+FROM service_type WHERE name = 'photo_booth_s''';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'instant_print', 'boolean', true, NULL
-FROM service_type WHERE name = 'Photo Booth';
+SELECT id, 'instant_print_p', 'boolean', true, NULL
+FROM service_type WHERE name = 'photo_booth_s''';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'backdrop_theme', 'text', false,
-       '["Classic","Wedding","Birthday","Corporate"]'::jsonb
-FROM service_type WHERE name = 'Photo Booth';
-
-
+SELECT id, 'backdrop_theme_p', 'single', false,
+       '["Light","Dark"]'::jsonb
+FROM service_type WHERE name = 'photo_booth_s''';
 
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'event_type', 'text', true,
+SELECT id, 'event_type_p', 'multiple', true,
        '["Wedding","Birthday","Corporate","Portrait"]'::jsonb
-FROM service_type WHERE name = 'Photographer';
+FROM service_type WHERE name = 'photographer_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'edited_photos', 'int', true, NULL
-FROM service_type WHERE name = 'Photographer';
+SELECT id, 'edited_photos_p', 'int', true, NULL
+FROM service_type WHERE name = 'photographer_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'video_included', 'boolean', false, NULL
-FROM service_type WHERE name = 'Photographer';
+SELECT id, 'air_conditioning_p', 'boolean', true, NULL
+FROM service_type WHERE name = 'car_rental_s';
 
-
-
-INSERT INTO service_property_definition
-(service_type_id, name, data_type, required, options)
-SELECT id, 'car_type', 'text', true,
+INSERT INTO service_property_definition (service_type_id, name, data_type, required, options)
+SELECT id, 'car_type_p', 'single', true,
        '["Sedan","SUV","Convertible","Van"]'::jsonb
-FROM service_type WHERE name = 'Car Rental';
+FROM service_type WHERE name = 'car_rental_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'transmission', 'text', true,
+SELECT id, 'transmission_p', 'single', true,
        '["Manual","Automatic"]'::jsonb
-FROM service_type WHERE name = 'Car Rental';
+FROM service_type WHERE name = 'car_rental_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'air_conditioning', 'boolean', true, NULL
-FROM service_type WHERE name = 'Car Rental';
+SELECT id, 'air_conditioning_p', 'boolean', true, NULL
+FROM service_type WHERE name = 'car_rental_s';
+
+-- ─── photo_booth_s services ───────────────────────────────────────────────────
+
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440001'::uuid, st.id,
+       'Glamour Shot Photo Booth',
+       150.00, 400.00,
+       '{"duration_hours_p": 4, "instant_print_p": true, "backdrop_theme_p": "Light"}'::jsonb,
+    ST_SetSRID(ST_MakePoint(16.4401, 43.5081), 4326),
+       'glamourshot@photobooth.hr', '+385 21 123 4567', 'Marmontova 5, 21000 Split'
+FROM service_type st WHERE st.name = 'photo_booth_s';
+
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440002'::uuid, st.id,
+       'Snap & Print Photo Booth',
+       200.00, 500.00,
+       '{"duration_hours_p": 6, "instant_print_p": false, "backdrop_theme_p": "Dark"}'::jsonb,
+    ST_SetSRID(ST_MakePoint(15.9819, 45.8150), 4326),
+       'snapprint@photobooth.hr', '+385 1 234 5678', 'Ilica 10, 10000 Zagreb'
+FROM service_type st WHERE st.name = 'photo_booth_s';
+
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440003'::uuid, st.id,
+       'Memories Photo Booth',
+       100.00, 300.00,
+       '{"duration_hours_p": 5, "instant_print_p": true}'::jsonb,
+    ST_SetSRID(ST_MakePoint(13.8497, 45.3271), 4326),
+       'memories@photobooth.hr', '+385 52 123 4567', 'Sergeja Jesenjina 2, 52100 Pula'
+FROM service_type st WHERE st.name = 'photo_booth_s';
 
 
+-- ─── photographer_s services ──────────────────────────────────────────────────
 
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Wedding Magic Booth', 300, 500,
-'{
-  "duration_hours": 5,
-  "instant_print": true,
-  "backdrop_theme": "Wedding"
-}'::jsonb
-FROM service_type WHERE name = 'Photo Booth';
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440004'::uuid, st.id,
+       'Ivan Photography',
+       300.00, 800.00,
+       '{"event_type_p": ["Wedding", "Portrait"], "edited_photos_p": 200, "video_included_p": true}'::jsonb,
+    ST_SetSRID(ST_MakePoint(18.0944, 42.6507), 4326),
+       'ivan@photography.hr', '+385 20 321 9876', 'Stradun 3, 20000 Dubrovnik'
+FROM service_type st WHERE st.name = 'photographer_s';
 
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Corporate Fun Booth', 250, 400,
-'{
-  "duration_hours": 4,
-  "instant_print": true,
-  "backdrop_theme": "Corporate"
-}'::jsonb
-FROM service_type WHERE name = 'Photo Booth';
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440005'::uuid, st.id,
+       'Lens & Moment Studio',
+       250.00, 600.00,
+       '{"event_type_p": ["Birthday", "Corporate"], "edited_photos_p": 150}'::jsonb,
+    ST_SetSRID(ST_MakePoint(15.9819, 45.8150), 4326),
+       'lensmoment@studio.hr', '+385 1 987 6543', 'Varsavska 12, 10000 Zagreb'
+FROM service_type st WHERE st.name = 'photographer_s';
 
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Birthday Party Booth', 200, 350,
-'{
-  "duration_hours": 3,
-  "instant_print": false,
-  "backdrop_theme": "Birthday"
-}'::jsonb
-FROM service_type WHERE name = 'Photo Booth';
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440006'::uuid, st.id,
+       'Coastal Clicks Photography',
+       400.00, 1000.00,
+       '{"event_type_p": ["Wedding", "Birthday", "Corporate"], "edited_photos_p": 300, "video_included_p": true}'::jsonb,
+    ST_SetSRID(ST_MakePoint(16.4401, 43.5081), 4326),
+       'coastal@clicks.hr', '+385 21 555 7890', 'Riva 8, 21000 Split'
+FROM service_type st WHERE st.name = 'photographer_s';
 
 
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Premium Wedding Photography', 1200, 2500,
-'{
-  "event_type": "Wedding",
-  "edited_photos": 300,
-  "video_included": true
-}'::jsonb
-FROM service_type WHERE name = 'Photographer';
+-- ─── car_rental_s services ────────────────────────────────────────────────────
 
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Corporate Event Photographer', 800, 1500,
-'{
-  "event_type": "Corporate",
-  "edited_photos": 150,
-  "video_included": false
-}'::jsonb
-FROM service_type WHERE name = 'Photographer';
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440007'::uuid, st.id,
+       'Adriatic Car Rentals',
+       50.00, 120.00,
+       '{"car_type_p": "SUV", "transmission_p": "Automatic", "air_conditioning_p": true}'::jsonb,
+    ST_SetSRID(ST_MakePoint(16.4401, 43.5081), 4326),
+       'rent@adriatic.hr', '+385 21 444 1234', 'Domovinskog rata 15, 21000 Split'
+FROM service_type st WHERE st.name = 'car_rental_s';
 
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Birthday Party Photographer', 500, 900,
-'{
-  "event_type": "Birthday",
-  "edited_photos": 120,
-  "video_included": false
-}'::jsonb
-FROM service_type WHERE name = 'Photographer';
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440008'::uuid, st.id,
+       'Zagreb Drive',
+       40.00, 90.00,
+       '{"car_type_p": "Sedan", "transmission_p": "Manual", "air_conditioning_p": true}'::jsonb,
+    ST_SetSRID(ST_MakePoint(15.9819, 45.8150), 4326),
+       'info@zagrebdrive.hr', '+385 1 111 2233', 'Branimirova 4, 10000 Zagreb'
+FROM service_type st WHERE st.name = 'car_rental_s';
 
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Portrait Session Pro', 300, 600,
-'{
-  "event_type": "Portrait",
-  "edited_photos": 50,
-  "video_included": false
-}'::jsonb
-FROM service_type WHERE name = 'Photographer';
-
-
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Luxury SUV Rental', 150, 250,
-'{
-  "car_type": "SUV",
-  "transmission": "Automatic",
-  "air_conditioning": true
-}'::jsonb
-FROM service_type WHERE name = 'Car Rental';
-
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Convertible Weekend Special', 200, 350,
-'{
-  "car_type": "Convertible",
-  "transmission": "Automatic",
-  "air_conditioning": true
-}'::jsonb
-FROM service_type WHERE name = 'Car Rental';
-
-INSERT INTO service (service_type_id, owner_id, title, start_price, end_price, properties)
-SELECT id,
-       '11111111-1111-1111-1111-111111111111'::uuid,
-       'Budget Sedan Rental', 70, 120,
-'{
-  "car_type": "Sedan",
-  "transmission": "Manual",
-  "air_conditioning": true
-}'::jsonb
-FROM service_type WHERE name = 'Car Rental';
+INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+SELECT '550e8400-e29b-41d4-a716-446655440009'::uuid, st.id,
+       'Island Wheels Rental',
+       60.00, 150.00,
+       '{"car_type_p": "Convertible", "transmission_p": "Automatic", "air_conditioning_p": false}'::jsonb,
+    ST_SetSRID(ST_MakePoint(15.2314, 44.1194), 4326),
+       'wheels@island.hr', '+385 23 777 8899', 'Široka ulica 6, 23000 Zadar'
+FROM service_type st WHERE st.name = 'car_rental_s';
 
 
