@@ -3,10 +3,7 @@ package app.planner.endpoint.service;
 import app.planner.endpoint.serviceproperty.ServicePropertyValidator;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import app.planner.endpoint.service.type.CreateServiceRequest;
 import app.planner.endpoint.service.type.ServiceCreatedResponse;
 

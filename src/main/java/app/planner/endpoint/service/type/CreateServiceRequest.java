@@ -1,12 +1,9 @@
 package app.planner.endpoint.service.type;
 
 import jakarta.validation.constraints.*;
+import tools.jackson.databind.JsonNode;
 
 import java.math.BigDecimal;
-import java.util.Map;
-import java.util.UUID;
-
-import tools.jackson.databind.JsonNode;
 
 public record CreateServiceRequest(
 
@@ -26,7 +23,7 @@ public record CreateServiceRequest(
         BigDecimal endPrice,
 
         @NotNull
-        Map<String, Object> properties,
+        JsonNode properties,
 
         @DecimalMin(value = "-90.0") @DecimalMax(value = "90.0")
         Double latitude,
