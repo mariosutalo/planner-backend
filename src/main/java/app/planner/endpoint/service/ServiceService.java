@@ -21,11 +21,11 @@ public class ServiceService {
     }
 
     public ServiceCreatedResponse addNewService(CreateServiceRequest request, @Nullable String userUUID) {
-        if(userUUID == null) {
-            throw new ResponseStatusException(
-                HttpStatus.INTERNAL_SERVER_ERROR, "User UUID is null"
-            );
-        }
+//        if(userUUID == null) {
+//            throw new ResponseStatusException(
+//                HttpStatus.INTERNAL_SERVER_ERROR, "User UUID is null"
+//            );
+//        }
         servicePropertyValidator.validate(
                 request.serviceTypeId(),
                 request.properties()

@@ -28,7 +28,7 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
     private @Nullable String resourceId;
 
     @Override
-    public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
+    public AbstractAuthenticationToken convert(Jwt jwt) {
         Collection<GrantedAuthority> authorities = Stream.concat(
                 jwtGrantedAuthoritiesConverter.convert(jwt).stream(),
                 extractResourceRoles(jwt).stream()).collect(Collectors.toSet());
@@ -41,7 +41,7 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
         return jwt.getClaimAsString(claimName);
     }
 
-    //@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt jwt) {
         Map<String, Object> resourceAccess;
         Map<String, Object> resource;
