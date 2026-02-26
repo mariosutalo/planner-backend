@@ -1,7 +1,9 @@
 package app.planner.exception;
 
 import java.time.Instant;
+import java.util.Map;
 
+import app.planner.endpoint.serviceproperty.ServicePropertyValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,5 +35,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(ex.getStatusCode())
                 .body(error);
+    }
+
+    @ExceptionHandler(ServicePropertyValidationException.class)
+    public ResponseEntity<?> handlePropertyValidation(ServicePropertyValidationException ex) {
+        return ResponseEntity.badRequest().body(Map.of(
+                "message", "Invalid service properties",
+                "errors", ex.getErrors()
+        ));
     }
 }

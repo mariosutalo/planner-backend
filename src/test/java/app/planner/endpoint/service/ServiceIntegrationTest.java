@@ -14,35 +14,35 @@ import app.planner.jsontestdata.ServiceTestData;
 @Import(TestSecurityConfig.class)
 public class ServiceIntegrationTest extends BaseIntegrationTest {
 
-        @Autowired
-        private RestTestClient restTestClient;
+    @Autowired
+    private RestTestClient restTestClient;
 
-        @Test
-        void shouldReturnBadRequestForInvalidData() {
-                var invalidData = ServiceTestData.invalidNewServiceData;
-                var headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
+    @Test
+    void shouldReturnBadRequestForInvalidData() {
+        var invalidData = ServiceTestData.invalidNewServiceData;
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-                restTestClient
-                                .post()
-                                .uri("api/services")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(invalidData)
-                                .exchange()
-                                .expectStatus().isBadRequest();
-        }
+        restTestClient
+                .post()
+                .uri("api/services")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(invalidData)
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
 
-        @Test
-        void shouldReturnCreatedOnValidSpotData() {
-                var validData = ServiceTestData.validNewServiceData;
+    @Test
+    void shouldReturnCreatedOnValidSpotData() {
+        var validData = ServiceTestData.validNewServiceData;
 
-                restTestClient
-                                .post()
-                                .uri("api/services")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(validData)
-                                .exchange()
-                                .expectStatus().isCreated();
-        }
+        restTestClient
+                .post()
+                .uri("api/services")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(validData)
+                .exchange()
+                .expectStatus().isCreated();
+    }
 
 }

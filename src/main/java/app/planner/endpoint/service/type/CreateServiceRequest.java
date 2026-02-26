@@ -1,12 +1,12 @@
 package app.planner.endpoint.service.type;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.UUID;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JsonNode;
 
 public record CreateServiceRequest(
 
@@ -29,7 +29,7 @@ public record CreateServiceRequest(
         BigDecimal endPrice,
 
         @NotNull
-        JsonNode properties, // or Map<String, Object> if deserializing JSONB
+        Map<String, Object> properties,
 
         @DecimalMin(value = "-90.0") @DecimalMax(value = "90.0")
         Double latitude,
@@ -48,7 +48,7 @@ public record CreateServiceRequest(
 
 ) {
     public CreateServiceRequest {
-        if (startPrice != null && endPrice != null && endPrice.compareTo(startPrice) < 0) {
+        if (endPrice.compareTo(startPrice) < 0) {
             throw new IllegalArgumentException("End price must be greater than or equal to start price");
         }
     }

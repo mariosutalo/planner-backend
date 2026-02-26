@@ -22,7 +22,7 @@ public class ServiceController {
         this.currentUser = user;
     }
 
-    @PreAuthorize("hasRole('role_user')")
+    //@PreAuthorize("hasRole('role_user')")
     @PostMapping()
     public ResponseEntity<ServiceCreatedResponse> addNewService(@Valid @RequestBody CreateServiceRequest request) {
         var userUUID = currentUser.getUserId();
