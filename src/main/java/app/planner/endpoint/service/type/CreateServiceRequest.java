@@ -11,9 +11,6 @@ import tools.jackson.databind.JsonNode;
 public record CreateServiceRequest(
 
         @NotNull
-        UUID ownerId,
-
-        @NotNull
         Long serviceTypeId,
 
         @NotBlank

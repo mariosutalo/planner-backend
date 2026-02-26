@@ -1,3 +1,11 @@
+DELETE FROM service;
+DELETE FROM service_property_definition;
+DELETE FROM service_type;
+
+ALTER SEQUENCE service_id_seq RESTART WITH 1;
+ALTER SEQUENCE service_property_definition_id_seq RESTART WITH 1;
+ALTER SEQUENCE service_type_id_seq RESTART WITH 1;
+
 INSERT INTO service_type (name) VALUES
 ('Photo Booth'),
 ('Photographer'),
