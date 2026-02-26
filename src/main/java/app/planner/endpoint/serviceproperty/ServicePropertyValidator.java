@@ -62,12 +62,12 @@ public class ServicePropertyValidator {
 
     private boolean isValidType(Object value, DataType dataType) {
         return switch (dataType) {
-            case STRING -> value instanceof String;
-            case INTEGER -> value instanceof Integer;
-            case FLOAT -> value instanceof Number;
+            case TEXT -> value instanceof String;
+            case INT -> value instanceof Integer;
+            case DECIMAL -> value instanceof Number;
             case BOOLEAN -> value instanceof Boolean;
-            case ARRAY -> value instanceof List;
-            case OBJECT -> value instanceof Map;
+            case MULTIPLE -> value instanceof List;
+            case SINGLE -> value instanceof String;
         };
     }
 

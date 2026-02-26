@@ -14,51 +14,51 @@ INSERT INTO service_type (name) VALUES
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'duration_hours_p', 'int', true, '{"min": 4, "max": 10}'
-FROM service_type WHERE name = 'photo_booth_s''';
+SELECT id, 'duration_hours_p', 'INT', true, '{"min": 4, "max": 10}'
+FROM service_type WHERE name = 'photo_booth_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'instant_print_p', 'boolean', true, NULL
-FROM service_type WHERE name = 'photo_booth_s''';
+SELECT id, 'instant_print_p', 'BOOLEAN', true, NULL
+FROM service_type WHERE name = 'photo_booth_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'backdrop_theme_p', 'single', false,
+SELECT id, 'backdrop_theme_p', 'SINGLE', false,
        '["Light","Dark"]'::jsonb
-FROM service_type WHERE name = 'photo_booth_s''';
+FROM service_type WHERE name = 'photo_booth_s';
 
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'event_type_p', 'multiple', true,
+SELECT id, 'event_type_p', 'MULTIPLE', true,
        '["Wedding","Birthday","Corporate","Portrait"]'::jsonb
 FROM service_type WHERE name = 'photographer_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'edited_photos_p', 'int', true, NULL
+SELECT id, 'edited_photos_p', 'INT', true, NULL
 FROM service_type WHERE name = 'photographer_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'air_conditioning_p', 'boolean', true, NULL
+SELECT id, 'air_conditioning_p', 'BOOLEAN', true, NULL
 FROM service_type WHERE name = 'car_rental_s';
 
 INSERT INTO service_property_definition (service_type_id, name, data_type, required, options)
-SELECT id, 'car_type_p', 'single', true,
+SELECT id, 'car_type_p', 'SINGLE', true,
        '["Sedan","SUV","Convertible","Van"]'::jsonb
 FROM service_type WHERE name = 'car_rental_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'transmission_p', 'single', true,
+SELECT id, 'transmission_p', 'SINGLE', true,
        '["Manual","Automatic"]'::jsonb
 FROM service_type WHERE name = 'car_rental_s';
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)
-SELECT id, 'air_conditioning_p', 'boolean', true, NULL
+SELECT id, 'air_conditioning_p', 'BOOLEAN', true, NULL
 FROM service_type WHERE name = 'car_rental_s';
 
 -- ─── photo_booth_s services ───────────────────────────────────────────────────
