@@ -12,7 +12,7 @@
             "projectName": "planner-backend",
             "args": [
                 "--spring.profiles.active=dev"
-            ],
+            ]
         },
         {
             "type": "java",
