@@ -17,11 +17,9 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor
 public class ServicePropertyValidator {
 
-    private final ServicePropertyDefinitionRepository definitionRepository;
     private final ServicePropertyDefinitionJdbcRepository definitionJdbcRepository;
 
     public void validate(Long serviceTypeId, JsonNode properties) {
-        //List<ServicePropertyDefinition> definitions = definitionRepository.findByServiceTypeId(serviceTypeId);
         List<ServicePropertyDefinition> definitions = definitionJdbcRepository.findByServiceTypeId(serviceTypeId);
 
         List<String> errors = new ArrayList<>();

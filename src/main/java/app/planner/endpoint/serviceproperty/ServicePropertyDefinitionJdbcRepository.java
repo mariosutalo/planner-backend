@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
+import app.planner.domain.DataType;
 import app.planner.domain.ServicePropertyDefinition;
+import app.planner.util.PgJsonUtil;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -14,15 +16,29 @@ public class ServicePropertyDefinitionJdbcRepository {
 
     private final JdbcClient client;
 
-    public List<ServicePropertyDefinition> findByServiceTypeId(Long serviceId) {
+    public List<ServicePropertyDefinition> findByServiceTypeId(Long serviceTypeId) {
         var query = """
-                select *
+                select id,
+                service_type_id as serviceTypeId,
+                name,
+                data_type as dataType,
+                required,
+                options
                 from service_property_definition
-                where id = :serviceId;
+                where service_type_id = :serviceId;
                 """;
         return client.sql(query)
-                .param("serviceId", serviceId)
-                .query(ServicePropertyDefinition.class)
+                .param("serviceId", serviceTypeId)
+                .query((rs, rowNum) -> {
+                    var spd = new ServicePropertyDefinition();
+                    spd.setId(rs.getLong("id"));
+                    spd.setServiceTypeId(rs.getLong("serviceTypeId"));
+                    spd.setName(rs.getString("name"));
+                    spd.setDataType(DataType.valueOf(rs.getString("dataType")));
+                    spd.setRequired(rs.getBoolean("required"));
+                    spd.setOptions(PgJsonUtil.toJsonNode(rs, "options"));
+                    return spd;
+                })
                 .list();
     }
 
