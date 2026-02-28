@@ -19,7 +19,6 @@ public class ServiceTypeTest extends BaseIntegrationTest {
 
     @Test
     void shouldReturnBadRequestForInvalidData() {
-        var invalidData = ServiceTestData.invalidNewServiceData;
         var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 

@@ -1,9 +1,11 @@
 package app.planner.endpoint.service.type;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import tools.jackson.databind.JsonNode;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public record CreateServiceRequest(
 
@@ -38,7 +40,11 @@ public record CreateServiceRequest(
         String phoneNumber,
 
         @Size(max = 255)
-        String streetAddress
+        String streetAddress,
+
+        @NotEmpty
+        @Valid
+        List<ServiceImageRequest> serviceImagesApiData
 
 ) {
     public CreateServiceRequest {

@@ -1,0 +1,55 @@
+{
+    "serviceTypeId": 1,
+    "title": "Photo Booth - Photo Zone",
+    "startPrice": 50.00,
+    "endPrice": 250.00,
+    "properties": {
+        "duration_hours_p": {"min": 3, "max": 10},
+        "instant_print_p": true,
+        "backdrop_theme_p": "Light"
+    },
+    "latitude": 43.0035,
+    "longitude": 17.5501,
+    "email": "contact@example.com",
+    "phoneNumber": "+385 20 123 4567",
+    "streetAddress": "Ulica kralja Tomislava 1, 20355 Opuzen",
+    "serviceImagesApiData": [
+        {
+            "name": "Screenshot from 2026-01-06 14-25-45.png",
+            "imageType": "cover",
+            "variants": [
+                {
+                    "url": "spots/dc2cd3c0-2235-4377-8e03-c217135363bb-thumb_256.webp",
+                    "width": 256,
+                    "height": 256
+                },
+                {
+                    "url": "spots/dc2cd3c0-2235-4377-8e03-c217135363bb-original.webp",
+                    "width": 367,
+                    "height": 496
+                }
+            ]
+        },
+        {
+            "name": "Screenshot from 2026-01-12 15-48-47.png",
+            "imageType": "gallery",
+            "variants": [
+                {
+                    "url": "spots/a877c835-6961-4fc1-aa7d-b05d0cd37c4f-thumb_256.webp",
+                    "width": 256,
+                    "height": 256
+                },
+                {
+                    "url": "spots/a877c835-6961-4fc1-aa7d-b05d0cd37c4f-image_640.webp",
+                    "width": 640,
+                    "height": 545
+                },
+                {
+                    "url": "spots/a877c835-6961-4fc1-aa7d-b05d0cd37c4f-original.webp",
+                    "width": 674,
+                    "height": 574
+                }
+            ]
+        }
+    ]
+}
