@@ -12,7 +12,7 @@ import app.planner.config.TestSecurityConfig;
 import app.planner.jsontestdata.ServiceTestData;
 
 @Import(TestSecurityConfig.class)
-public class ServiceIntegrationTest extends BaseIntegrationTest {
+public class ServiceTest extends BaseIntegrationTest {
 
     @Autowired
     private RestTestClient restTestClient;

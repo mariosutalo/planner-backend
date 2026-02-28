@@ -11,7 +11,7 @@ import app.planner.endpoint.service.type.ServiceCreatedResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/services")
+@RequestMapping("/api/services")
 public class ServiceController {
 
     private final ServiceService service;

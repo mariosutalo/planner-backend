@@ -28,6 +28,7 @@ public class SecurityConfig {
         .authorizeHttpRequests((authorize) -> authorize
         .requestMatchers("/error").permitAll()
         .requestMatchers("/api/services/**").permitAll()
+        .requestMatchers("/api/service-types/**").permitAll()
         .requestMatchers("/actuator/**").permitAll()
         .anyRequest().authenticated())
         //.anyRequest().permitAll())
