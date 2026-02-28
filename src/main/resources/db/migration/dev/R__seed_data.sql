@@ -1,16 +1,49 @@
 DELETE FROM service;
 DELETE FROM service_property_definition;
+DELETE FROM service_type_translation;
 DELETE FROM service_type;
+DELETE FROM language;
 
 ALTER SEQUENCE service_id_seq RESTART WITH 1;
 ALTER SEQUENCE service_property_definition_id_seq RESTART WITH 1;
+ALTER SEQUENCE service_type_translation_id_seq RESTART WITH 1;
 ALTER SEQUENCE service_type_id_seq RESTART WITH 1;
+ALTER SEQUENCE language_id_seq RESTART WITH 1;
+
+INSERT INTO language (code, name) VALUES
+('en', 'English'),
+('hr', 'Croatian'),
+('de', 'German'),
+('fr', 'French'),
+('es', 'Spanish');
 
 
 INSERT INTO service_type (name) VALUES
 ('photo_booth_s'),
 ('photographer_s'),
 ('car_rental_s');
+
+INSERT INTO service_type_translation (service_type_id, language_id, name)
+SELECT st.id, l.id, t.name
+FROM (VALUES
+    ('photo_booth_s', 'en', 'Photo Booth'),
+    ('photo_booth_s', 'hr', 'Foto Kabina'),
+    ('photo_booth_s', 'de', 'Fotobox'),
+    ('photo_booth_s', 'fr', 'Cabine Photo'),
+    ('photo_booth_s', 'es', 'Cabina Fotográfica'),
+    ('photographer_s', 'en', 'Photographer'),
+    ('photographer_s', 'hr', 'Fotograf'),
+    ('photographer_s', 'de', 'Fotograf'),
+    ('photographer_s', 'fr', 'Photographe'),
+    ('photographer_s', 'es', 'Fotógrafo'),
+    ('car_rental_s', 'en', 'Car Rental'),
+    ('car_rental_s', 'hr', 'Iznajmljivanje Auta'),
+    ('car_rental_s', 'de', 'Autovermietung'),
+    ('car_rental_s', 'fr', 'Location de Voiture'),
+    ('car_rental_s', 'es', 'Alquiler de Coches')
+) AS t(service_type_name, lang_code, name)
+JOIN service_type st ON st.name = t.service_type_name
+JOIN language l ON l.code = t.lang_code;
 
 INSERT INTO service_property_definition
 (service_type_id, name, data_type, required, options)

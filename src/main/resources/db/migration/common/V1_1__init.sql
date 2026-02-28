@@ -3,9 +3,23 @@ CREATE TYPE image_type_enum AS ENUM ('cover', 'gallery');
 
 CREATE EXTENSION IF NOT EXISTS postgis;
 
+CREATE TABLE language (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code CHAR(2) NOT NULL UNIQUE,
+    name TEXT NOT NULL
+);
+
 CREATE TABLE service_type (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE service_type_translation (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    service_type_id BIGINT NOT NULL REFERENCES service_type(id) ON DELETE CASCADE,
+    language_id BIGINT NOT NULL REFERENCES language(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    CONSTRAINT unique_service_type_language UNIQUE (service_type_id, language_id)
 );
 
 CREATE TABLE service_property_definition (
@@ -65,3 +79,6 @@ CREATE TABLE favorite_service (
     FOREIGN KEY (service_id) REFERENCES service (id) ON DELETE CASCADE,
     CONSTRAINT unique_user_service UNIQUE (service_id, user_id)
 );
+
+
+
