@@ -6,7 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -18,14 +21,16 @@ public class ServiceImage implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	private Timestamp createdAt;
+	@CreationTimestamp
+	@Column(name = "created_at", nullable = false, updatable = false)
+	private Instant createdAt;
 
 	private String imageType;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	private ServiceS service;
 
-	@OneToMany(mappedBy="serviceImage")
+	@OneToMany(mappedBy="serviceImage", cascade = CascadeType.ALL)
 	private Set<ServiceImageVariant> serviceImageVariants;
 
 }

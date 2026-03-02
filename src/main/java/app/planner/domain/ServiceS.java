@@ -66,7 +66,7 @@ public class ServiceS implements Serializable {
 	private ServiceType serviceType;
 
 	// bi-directional many-to-one association to ServiceImage
-	@OneToMany(mappedBy = "service")
+	@OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
 	private Set<ServiceImage> serviceImages;
 
 }
