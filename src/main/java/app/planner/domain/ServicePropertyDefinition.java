@@ -1,6 +1,5 @@
 package app.planner.domain;
 
-import java.io.Serializable;
 
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -13,7 +12,7 @@ import tools.jackson.databind.JsonNode;
 @Getter
 @Setter
 @Entity
-public class ServicePropertyDefinition implements Serializable {
+public class ServicePropertyDefinition {
     private static final long serialVersionUID = 1L;
 
     @Id

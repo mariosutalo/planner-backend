@@ -1,6 +1,5 @@
 package app.planner.domain;
 
-import java.io.Serializable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @Getter
 @Setter
-public class ServiceImage implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ServiceImage {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

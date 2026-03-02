@@ -1,6 +1,5 @@
 package app.planner.domain;
 
-import java.io.Serializable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-public class FavoriteService implements Serializable {
+public class FavoriteService {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

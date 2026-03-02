@@ -1,6 +1,5 @@
 package app.planner.domain;
 
-import java.io.Serializable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +21,7 @@ import org.locationtech.jts.geom.Point;
 @Table(name = "service")
 @Getter
 @Setter
-public class ServiceS implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ServiceS {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
