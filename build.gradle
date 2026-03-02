@@ -47,6 +47,8 @@ dependencies {
 	errorprone 'com.google.errorprone:error_prone_core:2.42.0' // https://github.com/google/error-prone
 	errorprone 'com.uber.nullaway:nullaway:0.12.12' // https://github.com/uber/NullAway
 
+	implementation("org.hibernate:hibernate-spatial:7.2.4.Final")
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 }

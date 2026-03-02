@@ -25,14 +25,13 @@ public class ServicePropertyDefinitionJdbcRepository {
                 required,
                 options
                 from service_property_definition
-                where service_type_id = :serviceId;
+                where service_type_id = :serviceTypeId;
                 """;
         return client.sql(query)
-                .param("serviceId", serviceTypeId)
+                .param("serviceTypeId", serviceTypeId)
                 .query((rs, rowNum) -> {
                     var spd = new ServicePropertyDefinition();
                     spd.setId(rs.getLong("id"));
-                    spd.setServiceTypeId(rs.getLong("serviceTypeId"));
                     spd.setName(rs.getString("name"));
                     spd.setDataType(DataType.valueOf(rs.getString("dataType")));
                     spd.setRequired(rs.getBoolean("required"));

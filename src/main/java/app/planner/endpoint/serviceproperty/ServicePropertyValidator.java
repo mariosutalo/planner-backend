@@ -29,7 +29,7 @@ public class ServicePropertyValidator {
 
             // Check required
             if (value == null || value.isNull()) {
-                if (def.isRequired()) {
+                if (def.getRequired()) {
                     errors.add("Missing required property: " + def.getName());
                 }
                 continue;

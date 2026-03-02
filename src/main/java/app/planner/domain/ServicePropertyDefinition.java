@@ -1,31 +1,38 @@
 package app.planner.domain;
 
+import java.io.Serializable;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import tools.jackson.databind.JsonNode;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-
-@Setter
 @Getter
+@Setter
 @Entity
-public class ServicePropertyDefinition {
+public class ServicePropertyDefinition implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long serviceTypeId;
-    private String name;
 
     @Enumerated(EnumType.STRING)
     private DataType dataType;
 
-    private boolean required;
+    private String name;
 
     @Column(columnDefinition = "jsonb")
     @JdbcTypeCode(SqlTypes.JSON)
     private JsonNode options;
+
+    private Boolean required;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_type_id")
+    private ServiceType serviceType;
 
 }
