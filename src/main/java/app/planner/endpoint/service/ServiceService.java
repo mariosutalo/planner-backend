@@ -1,7 +1,6 @@
 package app.planner.endpoint.service;
 
 import app.planner.endpoint.serviceproperty.ServicePropertyValidator;
-import app.planner.endpoint.servicetype.ServiceTypeController;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashSet;
@@ -12,13 +11,11 @@ import org.jspecify.annotations.Nullable;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.PrecisionModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import app.planner.domain.ServiceImage;
 import app.planner.domain.ServiceImageVariant;
 import app.planner.domain.ServiceS;
+import app.planner.domain.ServiceType;
 import app.planner.endpoint.service.type.CreateServiceRequest;
 import app.planner.endpoint.service.type.ServiceCreatedResponse;
 
@@ -35,9 +32,15 @@ public class ServiceService {
 
     public ServiceCreatedResponse addNewService(CreateServiceRequest request, @Nullable String userUUID) {
         if (userUUID == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR, "User UUID is null");
+
+            /*
+             * throw new ResponseStatusException(
+             * HttpStatus.INTERNAL_SERVER_ERROR, "User UUID is null");
+             */
+            // to do - fake uuid
+            userUUID = UUID.randomUUID().toString();
         }
+
         servicePropertyValidator.validate(
                 request.serviceTypeId(),
                 request.properties());
@@ -48,12 +51,17 @@ public class ServiceService {
         service.setOwnerId(UUID.fromString(userUUID));
         service.setPhoneNumber(request.phoneNumber());
 
+        var serviceType = new ServiceType();
+        serviceType.setId(request.serviceTypeId());
+
+        service.setServiceType(serviceType);
+
         var geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
         var spotPosition = geometryFactory
                 .createPoint(new Coordinate(request.longitude(), request.latitude()));
         service.setPosition(spotPosition);
 
-        service.setProperties(request.properties().asString());
+        service.setProperties(request.properties().toString());
         service.setStartPrice(request.startPrice());
         service.setEndPrice(request.endPrice());
         service.setStreetAddress(request.streetAddress());

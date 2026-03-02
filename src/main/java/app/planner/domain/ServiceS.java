@@ -7,8 +7,12 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.locationtech.jts.geom.Point;
 
 /**
  * The persistent class for the service database table.
@@ -25,8 +29,9 @@ public class ServiceS implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "created_at")
-	private Timestamp createdAt;
+	@CreationTimestamp
+	@Column(name = "created_at", nullable = false, updatable = false)
+	private Instant createdAt;
 
 	private String email;
 
@@ -39,7 +44,7 @@ public class ServiceS implements Serializable {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 
-	private Object position;
+	private Point position;
 
 	private String properties;
 
