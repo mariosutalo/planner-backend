@@ -44,7 +44,7 @@ public class ServiceController {
     @GetMapping("/by-user-id")
     public PaginatedResponse<List<ServiceTableResponse>> getServicesByUserId(
             @Valid ServiceSearchForTableRequest request) {
-        return service.findSpotsByOwner(request, null);
+        return service.findSpotsByOwner(request, currentUser.getUserId());
 
     }
 

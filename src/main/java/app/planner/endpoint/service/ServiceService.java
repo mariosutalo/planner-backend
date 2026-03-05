@@ -68,7 +68,7 @@ public class ServiceService {
         service.setStartPrice(request.startPrice());
         service.setEndPrice(request.endPrice());
         service.setStreetAddress(request.streetAddress());
-        service.setTitle(request.title());
+        service.setName(request.title());
 
         List<ServiceImage> serviceImages = request.serviceImagesApiData().stream().map(img -> {
             var serviceImage = new ServiceImage();
@@ -94,16 +94,18 @@ public class ServiceService {
 
     public PaginatedResponse<List<ServiceTableResponse>> findSpotsByOwner(ServiceSearchForTableRequest request,
             @Nullable String ownerUuid) {
-        if (ownerUuid == null) {
+        // to do
+        /* if (ownerUuid == null) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Invalid request");
-        }
-        var uuid = UUID.fromString(ownerUuid);
-        // var spotNameWithWildcards =
+        } */
+/*         var uuid = UUID.fromString(ownerUuid);
+ */        // var spotNameWithWildcards =
         // SearchUtils.addWildCardsToString(spotParams.getTerm());
+        var uuid = UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
         var offset = request.getPageSize() * (request.getPage() - 1);
-        var spots = serviceJdbcRepository.getServiceForOwner(uuid, request.getPageSize(), offset);
+        var spots = serviceJdbcRepository.getServicesForOwner(uuid, request.getPageSize(), offset);
         var count = serviceJdbcRepository.countServiceForOwner(uuid);
         return new PaginatedResponse<>(spots, request.getPage(), request.getPageSize(), count);
     }

@@ -52,7 +52,7 @@ public class ServiceS {
 	@Column(name = "street_address")
 	private String streetAddress;
 
-	private String title;
+	private String name;
 
 	// bi-directional many-to-one association to FavoriteService
 	@OneToMany(mappedBy = "service")

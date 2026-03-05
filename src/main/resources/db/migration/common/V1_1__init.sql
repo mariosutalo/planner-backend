@@ -35,7 +35,7 @@ CREATE TABLE service (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     owner_id uuid NOT NULL,
     service_type_id BIGINT NOT NULL REFERENCES service_type(id),
-    title TEXT NOT NULL,
+    name TEXT NOT NULL,
     start_price decimal(9,2),
     end_price decimal (9,2),
     properties JSONB NOT NULL,

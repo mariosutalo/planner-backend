@@ -15,11 +15,11 @@ public class ServiceJdbcRepository {
 
     private final JdbcClient jdbcClient;
 
-    public List<ServiceTableResponse> getServiceForOwner(UUID ownerId, int limit, int offset) {
+    public List<ServiceTableResponse> getServicesForOwner(UUID ownerId, int limit, int offset) {
         var sql = """
                 SELECT
                 id,
-                name,
+                name
                 FROM service
                 WHERE owner_id = :ownerId
                 order by name asc

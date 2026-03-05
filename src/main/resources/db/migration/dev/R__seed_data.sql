@@ -96,7 +96,7 @@ FROM service_type WHERE name = 'car_rental_s';
 
 -- ─── photo_booth_s services ───────────────────────────────────────────────────
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440001'::uuid, st.id,
        'Glamour Shot Photo Booth',
        150.00, 400.00,
@@ -105,7 +105,7 @@ SELECT '550e8400-e29b-41d4-a716-446655440001'::uuid, st.id,
        'glamourshot@photobooth.hr', '+385 21 123 4567', 'Marmontova 5, 21000 Split'
 FROM service_type st WHERE st.name = 'photo_booth_s';
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440002'::uuid, st.id,
        'Snap & Print Photo Booth',
        200.00, 500.00,
@@ -114,7 +114,7 @@ SELECT '550e8400-e29b-41d4-a716-446655440002'::uuid, st.id,
        'snapprint@photobooth.hr', '+385 1 234 5678', 'Ilica 10, 10000 Zagreb'
 FROM service_type st WHERE st.name = 'photo_booth_s';
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440003'::uuid, st.id,
        'Memories Photo Booth',
        100.00, 300.00,
@@ -126,7 +126,7 @@ FROM service_type st WHERE st.name = 'photo_booth_s';
 
 -- ─── photographer_s services ──────────────────────────────────────────────────
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440004'::uuid, st.id,
        'Ivan Photography',
        300.00, 800.00,
@@ -135,7 +135,7 @@ SELECT '550e8400-e29b-41d4-a716-446655440004'::uuid, st.id,
        'ivan@photography.hr', '+385 20 321 9876', 'Stradun 3, 20000 Dubrovnik'
 FROM service_type st WHERE st.name = 'photographer_s';
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440005'::uuid, st.id,
        'Lens & Moment Studio',
        250.00, 600.00,
@@ -144,7 +144,7 @@ SELECT '550e8400-e29b-41d4-a716-446655440005'::uuid, st.id,
        'lensmoment@studio.hr', '+385 1 987 6543', 'Varsavska 12, 10000 Zagreb'
 FROM service_type st WHERE st.name = 'photographer_s';
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440006'::uuid, st.id,
        'Coastal Clicks Photography',
        400.00, 1000.00,
@@ -156,7 +156,7 @@ FROM service_type st WHERE st.name = 'photographer_s';
 
 -- ─── car_rental_s services ────────────────────────────────────────────────────
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440007'::uuid, st.id,
        'Adriatic Car Rentals',
        50.00, 120.00,
@@ -165,7 +165,7 @@ SELECT '550e8400-e29b-41d4-a716-446655440007'::uuid, st.id,
        'rent@adriatic.hr', '+385 21 444 1234', 'Domovinskog rata 15, 21000 Split'
 FROM service_type st WHERE st.name = 'car_rental_s';
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440008'::uuid, st.id,
        'Zagreb Drive',
        40.00, 90.00,
@@ -174,7 +174,7 @@ SELECT '550e8400-e29b-41d4-a716-446655440008'::uuid, st.id,
        'info@zagrebdrive.hr', '+385 1 111 2233', 'Branimirova 4, 10000 Zagreb'
 FROM service_type st WHERE st.name = 'car_rental_s';
 
-INSERT INTO service (owner_id, service_type_id, title, start_price, end_price, properties, position, email, phone_number, street_address)
+INSERT INTO service (owner_id, service_type_id, name, start_price, end_price, properties, position, email, phone_number, street_address)
 SELECT '550e8400-e29b-41d4-a716-446655440009'::uuid, st.id,
        'Island Wheels Rental',
        60.00, 150.00,
