@@ -1,13 +1,17 @@
 package app.planner.endpoint.service;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import app.planner.config.CurrentUser;
 import app.planner.endpoint.service.type.CreateServiceRequest;
 import app.planner.endpoint.service.type.ServiceCreatedResponse;
+import app.planner.endpoint.service.type.ServiceSearchForTableRequest;
+import app.planner.endpoint.service.type.ServiceTableResponse;
+import app.planner.sharedtypes.PaginatedResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -22,7 +26,7 @@ public class ServiceController {
         this.currentUser = user;
     }
 
-    //@PreAuthorize("hasRole('role_user')")
+    // @PreAuthorize("hasRole('role_user')")
     @PostMapping()
     public ResponseEntity<ServiceCreatedResponse> addNewService(@Valid @RequestBody CreateServiceRequest request) {
         var userUUID = currentUser.getUserId();
@@ -37,13 +41,11 @@ public class ServiceController {
                 .body(serviceResponse);
     }
 
-    @GetMapping()
-    public ResponseEntity<String> getFeaturedServices() {
-        var result = service.testCall();
-        if (result != null) {
-            return ResponseEntity.ok(result.concat("d"));
-        }
-        return ResponseEntity.notFound().build();
+    @GetMapping("/by-user-id")
+    public PaginatedResponse<List<ServiceTableResponse>> getServicesByUserId(
+            @Valid ServiceSearchForTableRequest request) {
+        return service.findSpotsByOwner(request, null);
+
     }
 
 }

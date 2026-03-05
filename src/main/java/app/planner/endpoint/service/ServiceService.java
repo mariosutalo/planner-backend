@@ -1,6 +1,7 @@
 package app.planner.endpoint.service;
 
 import app.planner.endpoint.serviceproperty.ServicePropertyValidator;
+import app.planner.sharedtypes.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashSet;
@@ -11,13 +12,18 @@ import org.jspecify.annotations.Nullable;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.PrecisionModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import app.planner.domain.ServiceImage;
 import app.planner.domain.ServiceImageVariant;
 import app.planner.domain.ServiceS;
 import app.planner.domain.ServiceType;
 import app.planner.endpoint.service.type.CreateServiceRequest;
 import app.planner.endpoint.service.type.ServiceCreatedResponse;
+import app.planner.endpoint.service.type.ServiceSearchForTableRequest;
+import app.planner.endpoint.service.type.ServiceTableResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -25,10 +31,7 @@ public class ServiceService {
 
     private final ServicePropertyValidator servicePropertyValidator;
     private final ServiceRepository serviceRepository;
-
-    public @Nullable String testCall() {
-        return null;
-    }
+    private final ServiceJdbcRepository serviceJdbcRepository;
 
     public ServiceCreatedResponse addNewService(CreateServiceRequest request, @Nullable String userUUID) {
         if (userUUID == null) {
@@ -87,6 +90,22 @@ public class ServiceService {
 
         var savedService = serviceRepository.save(service);
         return new ServiceCreatedResponse(savedService.getId());
+    }
+
+    public PaginatedResponse<List<ServiceTableResponse>> findSpotsByOwner(ServiceSearchForTableRequest request,
+            @Nullable String ownerUuid) {
+        if (ownerUuid == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid request");
+        }
+        var uuid = UUID.fromString(ownerUuid);
+        // var spotNameWithWildcards =
+        // SearchUtils.addWildCardsToString(spotParams.getTerm());
+        var offset = request.getPageSize() * (request.getPage() - 1);
+        var spots = serviceJdbcRepository.getServiceForOwner(uuid, request.getPageSize(), offset);
+        var count = serviceJdbcRepository.countServiceForOwner(uuid);
+        return new PaginatedResponse<>(spots, request.getPage(), request.getPageSize(), count);
     }
 
 }
