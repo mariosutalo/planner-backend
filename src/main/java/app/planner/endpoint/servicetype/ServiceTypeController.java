@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.planner.endpoint.servicetype.type.ServiceTypeResponse;
@@ -18,8 +19,9 @@ public class ServiceTypeController {
 
 
     @GetMapping("/all")
-    public List<ServiceTypeResponse> getAllServiceTypes(String langCode) {
-        return serviceTypeService.getServiceTypes(langCode);
+    public List<ServiceTypeResponse> getAllServiceTypes(@RequestParam String langCodee) {
+        return serviceTypeService.getServiceTypes(langCodee);
     }
+
 
 }

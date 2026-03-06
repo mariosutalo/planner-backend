@@ -19,7 +19,7 @@
             "name": "PlannerApplication - Prod",
             "request": "launch",
             "mainClass": "app.planner.PlannerApplication",
-            "projectName": "planner-backend",
+            "projectName": "planner-backend"
         },
         {
             "type": "java",
@@ -27,6 +27,16 @@
             "request": "launch",
             "mainClass": "app.planner.TestPlannerApplication",
             "projectName": "planner-backend"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-PlannerApplication<planner>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "app.planner.PlannerApplication",
+            "projectName": "planner",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
