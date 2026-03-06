@@ -60,11 +60,11 @@ CREATE TABLE service_image (
     FOREIGN KEY (service_id) REFERENCES service (id) ON DELETE CASCADE
 );
 
-
+-- to do, return unique on url
 CREATE TABLE service_image_variant (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     service_image_id BIGINT NOT NULL,
-    url VARCHAR(2083) NOT NULL UNIQUE,
+    url VARCHAR(2083) NOT NULL,
     width INT,
     height INT,
     FOREIGN KEY (service_image_id) REFERENCES service_image (id) ON DELETE CASCADE

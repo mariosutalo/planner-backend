@@ -14,7 +14,7 @@ public record CreateServiceRequest(
 
         @NotBlank
         @Size(max = 255)
-        String title,
+        String name,
 
         @DecimalMin(value = "0.01", message = "Start price must be greater than 0")
         @Digits(integer = 7, fraction = 2)

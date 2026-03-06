@@ -2,42 +2,79 @@ package app.planner.jsontestdata;
 
 public class ServiceTestData {
 
-    public static String invalidNewServiceData = """
-            {
-              "serviceTypeId": 1024,
-              "startPrice": 50.00,
-              "endPrice": 250.00,
-              "properties": {
-                "includesDisposal": true,
-                "equipmentType": "industrial",
-                "warrantyMonths": 12
-              },
-              "latitude": 43.0035,
-              "longitude": 17.5501,
-              "email": "contact@example.com",
-              "phoneNumber": "+385 20 123 4567",
-              "streetAddress": "Ulica kralja Tomislava 1, 20355 Opuzen"
-            }
-            
-            """;
+  public static String invalidNewServiceData = """
+      {
+        "serviceTypeId": 1024,
+        "startPrice": 50.00,
+        "endPrice": 250.00,
+        "properties": {
+          "includesDisposal": true,
+          "equipmentType": "industrial",
+          "warrantyMonths": 12
+        },
+        "latitude": 43.0035,
+        "longitude": 17.5501,
+        "email": "contact@example.com",
+        "phoneNumber": "+385 20 123 4567",
+        "streetAddress": "Ulica kralja Tomislava 1, 20355 Opuzen"
+      }
 
-    public static String validNewServiceData = """
-            {
-              "serviceTypeId": 1024,
-              "title": "Professional Landscaping Service",
-              "startPrice": 50.00,
-              "endPrice": 250.00,
-              "properties": {
-                "includesDisposal": true,
-                "equipmentType": "industrial",
-                "warrantyMonths": 12
-              },
-              "latitude": 43.0035,
-              "longitude": 17.5501,
-              "email": "contact@example.com",
-              "phoneNumber": "+385 20 123 4567",
-              "streetAddress": "Ulica kralja Tomislava 1, 20355 Opuzen"
-            }
-            """;
+      """;
+
+  public static String validNewServiceData = """
+      {
+    "serviceTypeId": 1,
+    "name": "Photo Booth - Photo Zone",
+    "startPrice": 50.00,
+    "endPrice": 250.00,
+    "properties": {
+        "duration_hours_p": 4,
+        "instant_print_p": true,
+        "backdrop_theme_p": "Light"
+    },
+    "latitude": 43.0035,
+    "longitude": 17.5501,
+    "email": "contact@example.com",
+    "phoneNumber": "+385 20 123 4567",
+    "streetAddress": "Ulica kralja Tomislava 1, 20355 Opuzen",
+    "serviceImagesApiData": [
+        {
+            "imageType": "cover",
+            "variants": [
+                {
+                    "url": "spots/dc2cd3c0-2235-4377-8e03-c217135363bb-thumb_256.webp",
+                    "width": 256,
+                    "height": 256
+                },
+                {
+                    "url": "spots/dc2cd3c0-2235-4377-8e03-c217135363bb-original.webp",
+                    "width": 367,
+                    "height": 496
+                }
+            ]
+        },
+        {
+            "imageType": "gallery",
+            "variants": [
+                {
+                    "url": "spots/a877c835-6961-4fc1-aa7d-b05d0cd37c4f-thumb_256.webp",
+                    "width": 256,
+                    "height": 256
+                },
+                {
+                    "url": "spots/a877c835-6961-4fc1-aa7d-b05d0cd37c4f-image_640.webp",
+                    "width": 640,
+                    "height": 545
+                },
+                {
+                    "url": "spots/a877c835-6961-4fc1-aa7d-b05d0cd37c4f-original.webp",
+                    "width": 674,
+                    "height": 574
+                }
+            ]
+        }
+    ]
+}
+                  """;
 
 }

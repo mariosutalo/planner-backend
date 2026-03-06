@@ -68,7 +68,7 @@ public class ServiceService {
         service.setStartPrice(request.startPrice());
         service.setEndPrice(request.endPrice());
         service.setStreetAddress(request.streetAddress());
-        service.setName(request.title());
+        service.setName(request.name());
 
         List<ServiceImage> serviceImages = request.serviceImagesApiData().stream().map(img -> {
             var serviceImage = new ServiceImage();

@@ -1,10 +1,10 @@
 {
     "serviceTypeId": 1,
-    "title": "Photo Booth - Photo Zone",
+    "name": "Photo Booth - Photo Zone",
     "startPrice": 50.00,
     "endPrice": 250.00,
     "properties": {
-        "duration_hours_p": {"min": 3, "max": 10},
+        "duration_hours_p": 4,
         "instant_print_p": true,
         "backdrop_theme_p": "Light"
     },
@@ -15,7 +15,6 @@
     "streetAddress": "Ulica kralja Tomislava 1, 20355 Opuzen",
     "serviceImagesApiData": [
         {
-            "name": "Screenshot from 2026-01-06 14-25-45.png",
             "imageType": "cover",
             "variants": [
                 {
@@ -31,7 +30,6 @@
             ]
         },
         {
-            "name": "Screenshot from 2026-01-12 15-48-47.png",
             "imageType": "gallery",
             "variants": [
                 {

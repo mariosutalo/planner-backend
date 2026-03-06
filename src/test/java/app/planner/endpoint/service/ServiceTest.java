@@ -45,4 +45,14 @@ public class ServiceTest extends BaseIntegrationTest {
                 .expectStatus().isCreated();
     }
 
+    @Test
+    void shouldReturnOkOnGetServicesForUser() {
+        restTestClient
+        .get()
+        .uri("api/services/by-user-id")
+        .exchange()
+        .expectStatus()
+        .isOk();
+    }
+
 }
