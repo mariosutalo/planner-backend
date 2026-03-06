@@ -19,8 +19,8 @@ public class ServiceTypeController {
 
 
     @GetMapping("/all")
-    public List<ServiceTypeResponse> getAllServiceTypes(@RequestParam String langCodee) {
-        return serviceTypeService.getServiceTypes(langCodee);
+    public List<ServiceTypeResponse> getAllServiceTypes(String langCode) {
+        return serviceTypeService.getServiceTypes(langCode);
     }
 
 
