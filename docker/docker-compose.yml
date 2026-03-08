@@ -29,7 +29,29 @@ services:
     ports:
       - "9090:8080"
 
+  photon:
+    image: rtuszik/photon-docker:2.0
+    environment:
+      - UPDATE_STRATEGY=DISABLED
+      - INITIAL_DOWNLOAD=FALSE # Set to true to download the initial data on startup
+      #- UPDATE_INTERVAL=720h # Check for updates every 30 days
+      #- REGION=hr # Optional: specific region (continent, country, or planet)
+      # - APPRISE_URLS=pover://user@token  # Optional: notifications
+      #- FILE_URL=https://download1.graphhopper.com/public/extracts/by-country-code/at/photon-db-at-250720.tar.bz2
+    volumes:
+      - photon_data:/photon/data
+    restart: unless-stopped
+    ports:
+      - "2322:2322"
+
 volumes:
   pg_data:
+  photon_data:
+
+
+#1. https://download1.graphhopper.com/public/europe/index.html
+#2. zstd --stdout -d ./croatia.zst | docker compose run --rm --no-TTY photon java $JAVA_OPTS -jar photon.jar -nominatim-import -import-file - -data-dir /photon/data
+#https://github.com/rtuszik/photon-docker/issues/150
+
 
 
