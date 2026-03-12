@@ -2,6 +2,7 @@ package app.planner.endpoint.service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,15 +17,11 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/services")
+@RequiredArgsConstructor
 public class ServiceController {
 
     private final ServiceService service;
     private final CurrentUser currentUser;
-
-    public ServiceController(ServiceService service, CurrentUser user) {
-        this.service = service;
-        this.currentUser = user;
-    }
 
     // @PreAuthorize("hasRole('role_user')")
     @PostMapping()
@@ -47,5 +44,4 @@ public class ServiceController {
         return service.findSpotsByOwner(request, currentUser.getUserId());
 
     }
-
 }

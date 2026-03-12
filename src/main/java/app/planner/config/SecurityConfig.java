@@ -24,22 +24,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests((authorize) -> authorize
-        .requestMatchers("/error").permitAll()
-        .requestMatchers("/api/services/**").permitAll()
-        .requestMatchers("/api/service-types/**").permitAll()
-        .requestMatchers("/actuator/**").permitAll()
-        .anyRequest().authenticated())
-        //.anyRequest().permitAll())
-        .oauth2ResourceServer(
-            oauth2-> oauth2.jwt(
-                jwt -> jwt.jwtAuthenticationConverter(jwtConverter)
-            ))
-        .sessionManagement(
-            session -> session.sessionCreationPolicy(
-                SessionCreationPolicy.STATELESS)
-            );
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/services/**").permitAll()
+                        .requestMatchers("/api/service-types/**").permitAll()
+                        .requestMatchers("/api/countries/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .anyRequest().authenticated())
+                //.anyRequest().permitAll())
+                .oauth2ResourceServer(
+                        oauth2 -> oauth2.jwt(
+                                jwt -> jwt.jwtAuthenticationConverter(jwtConverter)
+                        ))
+                .sessionManagement(
+                        session -> session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS)
+                );
         return http.build();
     }
 }
