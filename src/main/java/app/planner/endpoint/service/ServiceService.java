@@ -1,6 +1,9 @@
 package app.planner.endpoint.service;
 
+import app.planner.endpoint.country.CountryJdbcRepository;
+import app.planner.endpoint.service.type.*;
 import app.planner.endpoint.serviceproperty.ServicePropertyValidator;
+import app.planner.endpoint.servicetype.ServiceTypeJdbcRepository;
 import app.planner.sharedtypes.PaginatedResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -12,18 +15,12 @@ import org.jspecify.annotations.Nullable;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.PrecisionModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import app.planner.domain.ServiceImage;
 import app.planner.domain.ServiceImageVariant;
 import app.planner.domain.ServiceS;
 import app.planner.domain.ServiceType;
-import app.planner.endpoint.service.type.CreateServiceRequest;
-import app.planner.endpoint.service.type.ServiceCreatedResponse;
-import app.planner.endpoint.service.type.ServiceSearchForTableRequest;
-import app.planner.endpoint.service.type.ServiceTableResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +29,8 @@ public class ServiceService {
     private final ServicePropertyValidator servicePropertyValidator;
     private final ServiceRepository serviceRepository;
     private final ServiceJdbcRepository serviceJdbcRepository;
+    private final CountryJdbcRepository countryJdbcRepository;
+    private final ServiceTypeJdbcRepository serviceTypeJdbcRepository;
 
     public ServiceCreatedResponse addNewService(CreateServiceRequest request, @Nullable String userUUID) {
         if (userUUID == null) {
@@ -92,22 +91,28 @@ public class ServiceService {
         return new ServiceCreatedResponse(savedService.getId());
     }
 
-    public PaginatedResponse<List<ServiceTableResponse>> findSpotsByOwner(ServiceSearchForTableRequest request,
-            @Nullable String ownerUuid) {
+    public PaginatedResponse<List<ServiceTableResponse>> findServiceByOwner(ServiceSearchForTableRequest request,
+                                                                            @Nullable String ownerUuid) {
         // to do
         /* if (ownerUuid == null) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Invalid request");
         } */
-/*         var uuid = UUID.fromString(ownerUuid);
- */        // var spotNameWithWildcards =
+        /*         var uuid = UUID.fromString(ownerUuid);
+         */        // var spotNameWithWildcards =
         // SearchUtils.addWildCardsToString(spotParams.getTerm());
         var uuid = UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
         var offset = request.getPageSize() * (request.getPage() - 1);
         var spots = serviceJdbcRepository.getServicesForOwner(uuid, request.getPageSize(), offset);
         var count = serviceJdbcRepository.countServiceForOwner(uuid);
         return new PaginatedResponse<>(spots, request.getPage(), request.getPageSize(), count);
+    }
+
+    public CountryAndServiceTypeResponse getCountriesAndServiceTypes(String langCode) {
+        var countries = countryJdbcRepository.getAllCountries();
+        var serviceTypes = serviceTypeJdbcRepository.getServiceTypesLocalized(langCode);
+        return new CountryAndServiceTypeResponse(serviceTypes, countries);
     }
 
 }
